@@ -1,4 +1,5 @@
-const processRange = (start: number, end: number) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const processRangePartOne = (start: number, end: number) => {
   let current = start;
 
   const wrongIds: number[] = [];
@@ -18,9 +19,33 @@ const processRange = (start: number, end: number) => {
   return wrongIds;
 };
 
+const processRangePartTwo = (start: number, end: number) => {
+  let current = start;
+
+  const wrongIds = new Set<number>();
+
+  do {
+    const currentString = current.toString();
+
+    for (let i = 0; i < Math.floor(currentString.length / 2); i += 1) {
+      const string = currentString.slice(0, i + 1);
+      const finalString = new Array(Math.floor(currentString.length / (i + 1))).fill(string).join("");
+
+      if (currentString === finalString) {
+        wrongIds.add(Number(finalString));
+      }
+    }
+
+    current += 1;
+  } while (current <= end);
+
+  return wrongIds;
+};
+
 export default (input: string) => {
-  return input.split(",").reduce((numberOfWrongIds, range) => {
+  const wrongIds = input.split(",").reduce((wrongIds, range) => {
     const [start, end] = range.split("-").map(Number);
-    return numberOfWrongIds.concat(processRange(start, end));
-  }, [] as number[]).reduce((tot, wrongId) => tot + Number(wrongId), 0);
+    return new Set([...wrongIds, ...processRangePartTwo(start, end)]);
+  }, new Set<number>())
+  return Array.from(wrongIds).reduce((tot, wrongId) => tot + Number(wrongId), 0);
 };

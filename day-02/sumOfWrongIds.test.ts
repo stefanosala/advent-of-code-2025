@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert";
+import { readFileSync } from "node:fs";
 import sumOfWrongIds from "./sumOfWrongIds";
 
 test("sumOfWrongIds", () => {
@@ -7,5 +8,13 @@ test("sumOfWrongIds", () => {
 
   const result = sumOfWrongIds(input);
 
-  assert.equal(result, 1227775554);
+  assert.equal(result, 4174379265);
 });
+
+test("sumOfWrongIds - wrong solution", async () => {
+  const input = await readFileSync("./day-02/input.txt", "utf-8");
+
+  const result = sumOfWrongIds(input);
+
+  assert(result < 31680314021);
+})
