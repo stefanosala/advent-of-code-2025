@@ -9,5 +9,5 @@ test("processInput", async () => {
 818181911112111`;
 
   const result = processInput(input);
-  assert.equal(result, 357);
+  assert.equal(result, 3121910778619);
 });

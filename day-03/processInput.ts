@@ -1,7 +1,7 @@
-import findLargestPair from "./findLargestPair";
+import findLargestNumber from "./findLargestNumber";
 
 export default (input: string) => {
   return input
     .split("\n")
-    .reduce((acc, line) => acc + findLargestPair(line), 0);
+    .reduce((acc, line) => acc + findLargestNumber(line, 12), 0);
 };
